@@ -1,2 +1,530 @@
 # vansh_css_media_query_task
 for Techfest IIT Bombay
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Website with CSS Media Queries - Techfest CA Program</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .card p {
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: #ffd700;
+        }
+
+        .feature-text {
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* MEDIA QUERIES FOR RESPONSIVE DESIGN */
+
+        /* Tablet Styles - 768px and up */
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .nav-links {
+                gap: 2.5rem;
+            }
+        }
+
+        /* Desktop Styles - 1024px and up */
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                gap: 3rem;
+            }
+
+            .container {
+                padding: 0 40px;
+            }
+        }
+
+        /* Large Desktop Styles - 1440px and up */
+        @media (min-width: 1440px) {
+            .grid-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+
+            .hero p {
+                font-size: 1.4rem;
+            }
+
+            .features h2 {
+                font-size: 3rem;
+            }
+
+            .container {
+                padding: 0 60px;
+            }
+        }
+
+        /* Mobile Navigation - 767px and below */
+        @media (max-width: 767px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(102, 126, 234, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features h2 {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            }
+
+            .card {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High Contrast Support */
+        @media (prefers-contrast: high) {
+            .card {
+                border: 2px solid white;
+            }
+
+            .nav-links a {
+                border: 1px solid white;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            header, footer {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .card {
+                background: white;
+                color: black;
+                border: 1px solid black;
+            }
+
+            .hero {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">TechFest CA</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container" id="home">
+            <h1>CSS Media Query Integration</h1>
+            <p>A fully responsive website built with mobile-first CSS media queries, demonstrating modern web development techniques for the Techfest IIT Bombay CA Program.</p>
+            <a href="#features" class="cta-button">Explore Features</a>
+        </section>
+
+        <section class="container">
+            <div class="grid-container">
+                <div class="card">
+                    <h3>📱 Mobile-First Design</h3>
+                    <p>Built with mobile-first methodology using min-width media queries for optimal performance on all devices.</p>
+                </div>
+                <div class="card">
+                    <h3>🎨 Modern CSS Features</h3>
+                    <p>Utilizes CSS Grid, Flexbox, backdrop-filter, and advanced pseudo-selectors for cutting-edge design.</p>
+                </div>
+                <div class="card">
+                    <h3>♿ Accessibility Focus</h3>
+                    <p>Includes support for dark mode, reduced motion, high contrast, and screen reader compatibility.</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Performance Optimized</h3>
+                    <p>Lightweight code with efficient CSS and fast loading times across all devices and connections.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features container" id="features">
+            <h2>Responsive Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-text">
+                        <h4>Mobile (0-767px)</h4>
+                        <p>Single column layout with hamburger menu</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📟</div>
+                    <div class="feature-text">
+                        <h4>Tablet (768px+)</h4>
+                        <p>Two column grid with horizontal navigation</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💻</div>
+                    <div class="feature-text">
+                        <h4>Desktop (1024px+)</h4>
+                        <p>Three column layout with enhanced features</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🖥️</div>
+                    <div class="feature-text">
+                        <h4>Large Desktop (1440px+)</h4>
+                        <p>Four column layout with maximum content</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌙</div>
+                    <div class="feature-text">
+                        <h4>Dark Mode</h4>
+                        <p>Automatic dark mode support via prefers-color-scheme</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🖨️</div>
+                    <div class="feature-text">
+                        <h4>Print Optimized</h4>
+                        <p>Clean print styles for document printing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CSS Media Query Integration Task - Techfest IIT Bombay CA Program</p>
+            <p>Built with HTML5, CSS3, and Responsive Design Best Practices</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
